@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .form-container {
+        width: 50%; /* Adjust the width of the form container */
+    }
+
+    .signup-img {
+        width: 100%;
+        height: auto;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+        }
+
+        .form-container {
+            width: 80%; /* Adjust the width of the form container for smaller screens */
+        }
+    }
+</style>
+
+<div class="container">
+    <div class="form-container">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="Login">
+                <h1>Student Information</h1>
+            </div>
+            <div class="alert alert-danger" role="alert" style="padding: 10px; background-color: #f8d7da; border-color: #f5c6cb; color: #721c24;">
+                {% if messages %}
+                <ul class="messages" style="list-style: none; padding-left: 0;">
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="username" class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">branch</label>
+                <input type="text" name="branch" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"required>
+                 
+            </div>    
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Contact</label>
+                <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"required>
+                 
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Year</label>
+                <input type="text" name="year" class="form-control" id="exampleInputPassword1"required>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Image</label>
+                <input type="file" name="image" class="form-control" id="exampleInputPassword1"required>
+            </div>
+            <button type="submit" class="btn btn-primary">SignUP</button>
+            <p>Already have an account. <a href="{% url 'login' %}">Click here</a></p>
+        </form>
+    </div>
+
+ 
+</div>
+{% endblock %}

@@ -7,8 +7,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
         .navbar {
-            background-color: #000; /* Dark background color */
+            background-color: rgba(0, 0, 0, 0.5); /* Transparent background color */
             box-shadow: 0 4px 6px -6px #222; /* Box shadow for a subtle depth effect */
+            transition: top 0.3s; /* Add transition for smoother appearance */
+            position: fixed;
+            top: 0;
+            width: 100%;
         }
 
         .navbar-brand {
@@ -31,7 +35,7 @@
         }
 
         .form-control {
-            background-color: #222; /* Dark background color for search input */
+            background-color: rgba(0, 0, 0, 0.5); /* Transparent background color for search input */
             color: #fff; /* White text color for search input */
             border: none; /* Remove border */
             border-radius: 20px; /* Rounded border */
@@ -46,10 +50,14 @@
         .btn-primary:hover {
             background-color: #ff0000; /* Darker shade of red on hover */
         }
+
+        .navbar-hidden {
+            top: -100px; /* Move navbar out of viewport */
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'base' %}">MyClub</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,5 +82,21 @@
             </div>
         </div>
     </nav>
+
+    <script>
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                // Downscroll code
+                navbar.classList.add('navbar-hidden');
+            } else {
+                // Upscroll code
+                navbar.classList.remove('navbar-hidden');
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+        });
+    </script>
 </body>
 </html>
